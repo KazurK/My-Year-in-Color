@@ -1,16 +1,28 @@
+import os
+import json
 import datetime
 import subprocess
 date = datetime.datetime.now()
 
+entry_file = "Entries.json"
 
-class Day:
-    def __init__(self, entry, rating):
-        self.entry = entry
-        self.rating = rating
-    day = date.strftime("%a")
-    date = date.strftime("%c")
+def load_data():
+    if os.path.exists(entry_file):
+        with open(entry_file, "r") as f:
+            return json.load(f)
+        
+        default_categories = [
+            "purple = Happy", 
+            "red = Stressed/Annoyed", 
+            "grey = Average", 
+            "green = Productive", 
+            "blue = Content, at Peace", 
+            "black = idc idc whatever"]
+    return {"rating": default_categories, "entries": []}
 
-
+def save_data(data):
+    with open (entry_file, "w") as f:
+        json.dump(data, f, indent=2)
 
 def Rating():
     Ratings = ["purple = Happy", "red = Stressed/Annoyed", "grey = Average", "green = Productive", "blue = Content, at Peace", "black = idc idc whatever"]
@@ -24,14 +36,16 @@ def Rating():
 def Entry():
     intro = f"Date:{date.strftime("%x")}, Entry: "
     print(intro)
-    return input()
+    text = input()
+    rating = Rating()
+    entry = {
+        "entry": text,
+        "rating": rating,
+        "date": date.strftime("%c")
+    }
+    data["entries"].append(entry)
+    save_data(data)
+    print("Entry saved!")
+    
 
-day1 = Day(Entry(), Rating())
 
-day2 = Day(Entry(), Rating())
-
-print(f"Day: " + day1.day)
-print(f"Mood: " + day1.rating)
-print(f"Entry: " + day1.entry)
-
-subprocess.run(['clear'])
