@@ -38,12 +38,12 @@ def main_menu(stdscr):
     elif chosen_option == "Add Entry":
         print("2:Working")
     
-    elif chosen_option == "Edit Entry":
+    elif chosen_option == "Delete Entry":
         print("3:Working")
 
     else:
         print("4:Working")
 
 
-curses.wrapper(main)
+curses.wrapper(main_menu)
 
