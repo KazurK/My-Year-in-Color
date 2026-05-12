@@ -45,5 +45,5 @@ def main_menu(stdscr):
         print("4:Working")
 
 
-curses.wrapper(main)
+curses.wrapper(main_menu)
 
