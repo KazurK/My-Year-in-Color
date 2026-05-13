@@ -22,7 +22,7 @@ def show_message(stdscr, msg):
     stdscr.getch()    
 
 #input function 
-def get_input(stdscr, title, prompt, multiline=False):
+def get_input(stdscr, title, multiline=False):
 
     #draws boarder and displays title
     stdscr.clear()
@@ -40,7 +40,6 @@ def get_input(stdscr, title, prompt, multiline=False):
         box_h, box_w = 1, w - 6
         box_y, box_x = 5, 3   
     
-    stdscr.addstr(4, 3, prompt)
     center_text(stdscr, h - 2, hint)
 
     #draws visible border for input box
