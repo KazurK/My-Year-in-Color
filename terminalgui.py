@@ -11,17 +11,18 @@ def main_menu(stdscr):
     chosen_option = select_from_list(stdscr, "Select an option:", options)
 
     if chosen_option == "View Calander":
-        view_calender(data)
+        view_calender(stdscr, data)
     
     elif chosen_option == "Add Entry":
-        subprocess.run(['clear'])
-        curses.endwin()       
-        add_entry(data)
-        stdscr = curses.initscr()
+        curses.curs_set(1)
+        add_entry(stdscr, data)
+        curses.curs_set(0)
     
     elif chosen_option == "Delete Entry":
-        delete_entry(data)
+        delete_entry(stdscr, data)
 
 
-curses.wrapper(main_menu)
+
+if __name__ == "__main__":
+    curses.wrapper(main_menu)
 
