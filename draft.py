@@ -2,55 +2,51 @@ import os
 import json
 import datetime
 import subprocess
-date = datetime.datetime.now()
+from cursesHelper import show_message, get_input, select_from_list
 
 entry_file = "Entries.json"
 
+# JSON data functions
 def load_data():
+
+    default_categories = [
+        "purple = Happy", 
+        "red = Stressed/Annoyed", 
+        "grey = Average", 
+        "green = Productive", 
+        "blue = Content, at Peace", 
+        "black = idc idc whatever"]
+        
     if os.path.exists(entry_file):
         with open(entry_file, "r") as f:
             return json.load(f)
         
-        default_categories = [
-            "purple = Happy", 
-            "red = Stressed/Annoyed", 
-            "grey = Average", 
-            "green = Productive", 
-            "blue = Content, at Peace", 
-            "black = idc idc whatever"]
     return {"rating": default_categories, "entries": []}
 
 def save_data(data):
     with open (entry_file, "w") as f:
         json.dump(data, f, indent=2)
 
-def rating():
+#add entry and save to json file
+def add_entry(stdscr, data):
     Ratings = ["purple = Happy", "red = Stressed/Annoyed", "grey = Average", "green = Productive", "blue = Content, at Peace", "black = idc idc whatever"]
-    for mood in Ratings:
-        print(mood)
-    print("Rating: ")
-    x = input()
-    subprocess.run(['clear'])
-    return x
 
-def add_entry(data):
-    intro = f"Date:{date.strftime("%x")}, Entry: "
-    print(intro)
-
-    text = input()
-    rating = rating()
+    intro = f"Date:{datetime.now().strftime("%x")}, Entry: "
+    text = get_input(stdscr, intro, multiline=True)
+    rating = select_from_list(stdscr, "Rating:", Ratings)
     entry = {
         "id": len(data["entries"]) + 1, 
         "entry": text,
         "rating": rating,
-        "date": date.strftime("%c")
+        "date": datetime.now().strftime("%c")
     }
 
     data["entries"].append(entry)
     save_data(data)
-    print("Entry saved!")
+    show_message(stdscr, "Entry saved!")
     
-def view_calender(data):
+#load entries from json and display in terminal
+def view_calender(stdscr, data):
     entries = data["entries"]
 
     print(f"\n--- All Entries ({len(entries)} entries) ---")
@@ -78,7 +74,7 @@ def delete_entry(data):
 
         if len(data["entries"]) < original_len:
             save_data(data)
-            print(f"✓ Entry {entry_id} deleted.")
+            print(f"Entry {entry_id} deleted.")
         else:
             print("No entry with that ID.")
     except ValueError:
