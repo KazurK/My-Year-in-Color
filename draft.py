@@ -1,11 +1,10 @@
 import os
 import json
-import subprocess
 import curses
 from datetime import datetime
 from cursesHelper import show_message, get_input, select_from_list, draw_border, center_text
 
-entry_file = "Entries.json"
+entry_file = os.path.join(os.path.dirname(__file__), "Entries.json")
 
 # JSON data functions
 def load_data():
@@ -34,6 +33,7 @@ def add_entry(stdscr, data):
 
     intro = f"Date:{datetime.now().strftime("%x")}, Entry: "
     text = get_input(stdscr, intro, multiline=True)
+
     rating = select_from_list(stdscr, "Rating:", Ratings)
     entry = {
         "id": len(data["entries"]) + 1, 
@@ -41,6 +41,7 @@ def add_entry(stdscr, data):
         "rating": rating,
         "date": datetime.now().strftime("%c")
     }
+
 
     data["entries"].append(entry)
     save_data(data)
