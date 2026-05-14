@@ -32,11 +32,11 @@ def get_input(stdscr, title, multiline=False):
 
     #decides the size of the input box, uses multiline for entries and uses single line for mood ratings
     if multiline:
-        hint = "Ctrl-G to save      Ctrl-C to cancel"
+        hint = "Enter to save      Escape to cancel"
         box_h, box_w = h - 10, w - 6
         box_y, box_x = 5, 3
     else:
-        hint = "Enter to Confirm    Ctrl-C to cancel"
+        hint = "Enter to Confirm    Escape to cancel"
         box_h, box_w = 1, w - 6
         box_y, box_x = 5, 3   
     
@@ -61,12 +61,17 @@ def get_input(stdscr, title, multiline=False):
     #creates the actual input box
     edit_win = curses.newwin(box_h, box_w, box_y, box_x)
     box = Textbox(edit_win)
+    edit_win.keypad(True)
 
-    #gets text
-    try:
-        box.edit()
-    except KeyboardInterrupt:
-        return None
+    #proccesses key press to save and cancel
+    while True:
+        key = edit_win.getch()
+        if key == 27:           # Escape = cancel
+            return None
+        elif key in (10, 13):  # Enter = save
+            break
+        else:
+            box.do_command(key)
     
     text = box.gather().strip()
     return text if text else None
