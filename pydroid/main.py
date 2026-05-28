@@ -4,21 +4,22 @@ import os
 from datetime import datetime
 from helper import clear_console
 
-dairy = os.path.join(os.path.dirname(__file__), "diary.json")
+
+diary = os.path.join(os.path.dirname(__file__), "diary.json")
 
 def save_json(data):
-    with open (dairy, "w") as f:
+    with open (diary, "w") as f:
         json.dump(data, f, indent=2)
         
 def load_json():
-        if os.path.exists(dairy):
-            with open(dairy, "r") as f:
+        if os.path.exists(diary):
+            with open(diary, "r") as f:
                 return json.load(f)
     
     
     
 def add_entry(data):
-    intro = input(f"Day: {datetime.now.strftime("%x")}, Entry: ")
+    intro = input(f"Day: {datetime.now().strftime("%x")}, Entry: ")
     clear_console()
     
     emotions =[
@@ -47,24 +48,24 @@ def add_entry(data):
        mood = "black = idc idc whatever"
        
        
-    entry = {"id": len(data["dairy"]) + 1, "entry": intro, "emotion": mood, "date": datetime.now().strftime("%c")
+    entry = {"id": len(data['diary']) + 1, 'entry': intro, 'emotion': mood, 'date': datetime.now().strftime("%c")
     }
     
-    data["dairy"].append(entry)
+    data['diary'].append(entry)
     save_json(data)
     clear_console()
     print("Entry saved")
     
 def delete_entry(data):
-    if not data["dairy"]:
+    if not data['diary']:
         print("No entries to delete")
         return 
     
-    for line in data["dairy"]:
-        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+    for line in data['diary']:
+        print(f"ID: {line['id'] + 1 }  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
         
-    Delete = int(input("Delete entry: "))
-    data[dairy].pop(Delete)
+    Delete = int(input("Delete entry: ")) - 1
+    data['diary'].pop(Delete)
     save_json(data)
     clear_console()
     print("Entry deleted")
@@ -73,47 +74,48 @@ def delete_entry(data):
         
 def edit_entry(data):
 
-    if not data["dairy"]:
+    if not data['diary']:
         print("No entries to edit")
         return 
     
-    for line in data["dairy"]:
-        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+    for line in data['diary']:
+        print(f"ID: {line['id'] + 1 }  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
     
-    editNum = int(input("Edit entry: "))
+    editNum = int(input("Edit entry: ")) - 1
     clear_console()
     editText = input("Edit Text: ")
     
-    editEntry = {"id": editNum, "entry": editText, "emotion": data[editNum]['emotion'], "date": data[editNum]['date'] }
+    editEntry = {"id": data['diary'][editNum]['id'], "entry": editText, "emotion": data['diary'][editNum]['emotion'], "date": data['diary'][editNum]['date'] }
     
-    data[dairy].pop(editNum)
-    data[dairy].insert(editNum, editEntry)
+    data['diary'].pop(editNum)
+    data['diary'].insert(editNum, editEntry)
     save_json(data)
     clear_console()
-    print(f"Entry No.{editNum} edited")
+    print(f"Entry No.{editNum + 1} edited")
     
         
     
 def view_calander(data):
     
-    if not data["dairy"]:
+    if not data['diary']:
         print("No entries to view")
         return 
         
-    for line in data["dairy"]:
-        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+    for line in data['diary']:
+        print(f"ID: {line['id'] + 1 } |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
     
-    viewNum = int(input("View entry:"))
+    viewNum = int(input("View entry:")) -1
     clear_console()
     
-    print(f"id: {data[viewNum]['id']}\n date: {data[viewNum]['date']}\n emotion: {data[viewNum]['emotion']}\n entry: {data[viewNum]['entry']}")
+    print(f"id: {data['diary'][viewNum]['id'] + 1 }\n date: {data['diary'][viewNum]['date']}\n emotion: {data['diary'][viewNum]['emotion']}\n entry: {data['diary'][viewNum]['entry']}")
     
     
     
 def main():
     data = load_json()
     
-    select = int(input(print("Please enter number \n 1 -- View calander \n 2 -- Add entry \n 3 -- Edit entry \n 4 -- Delete entry")))
+    print("1 -- View calander \n2 -- Add entry \n3 -- Edit entry \n4 -- Delete entry\n")
+    select = int(input("Please enter number: "))
     
     if select == 1:
         view_calander(data)
@@ -123,9 +125,10 @@ def main():
         edit_entry(data)
     elif select == 4:
         delete_entry(data)
+    else:
+        print("Please select a valid option")
         
         
     
 if __name__ == "__main__":
     main()
-    
