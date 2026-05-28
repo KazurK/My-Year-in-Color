@@ -11,19 +11,9 @@ def save_json(data):
         json.dump(data, f, indent=2)
         
 def load_json():
-        default_categories = [
-        "purple = Happy", 
-        "red = Stressed/Annoyed", 
-        "grey = Average", 
-        "green = Productive", 
-        "blue = Content, at Peace", 
-        "black = idc idc whatever"]
-        
         if os.path.exists(dairy):
             with open(dairy, "r") as f:
                 return json.load(f)
-
-        return {"rating": default_categories,         "entries": []}
     
     
     
@@ -66,11 +56,76 @@ def add_entry(data):
     print("Entry saved")
     
 def delete_entry(data):
+    if not data["dairy"]:
+        print("No entries to delete")
+        return 
     
+    for line in data["dairy"]:
+        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+        
+    Delete = int(input("Delete entry: "))
+    data[dairy].pop(Delete)
+    save_json(data)
+    clear_console()
+    print("Entry deleted")
+     
+        
+        
 def edit_entry(data):
+
+    if not data["dairy"]:
+        print("No entries to edit")
+        return 
+    
+    for line in data["dairy"]:
+        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+    
+    editNum = int(input("Edit entry: "))
+    clear_console()
+    editText = input("Edit Text: ")
+    
+    editEntry = {"id": editNum, "entry": editText, "emotion": data[editNum]['emotion'], "date": data[editNum]['date'] }
+    
+    data[dairy].pop(editNum)
+    data[dairy].insert(editNum, editEntry)
+    save_json(data)
+    clear_console()
+    print(f"Entry No.{editNum} edited")
+    
+        
+    
 def view_calander(data):
+    
+    if not data["dairy"]:
+        print("No entries to view")
+        return 
+        
+    for line in data["dairy"]:
+        print(f"ID: {line['id']}|{line['date']}    |    {line['emotion'][:25]}    |    line['entry'][:50]")
+    
+    viewNum = int(input("View entry:"))
+    clear_console()
+    
+    print(f"id: {data[viewNum]['id']}\n date: {data[viewNum]['date']}\n emotion: {data[viewNum]['emotion']}\n entry: {data[viewNum]['entry']}")
+    
+    
     
 def main():
     data = load_json()
     
+    select = int(input(print("Please enter number \n 1 -- View calander \n 2 -- Add entry \n 3 -- Edit entry \n 4 -- Delete entry")))
+    
+    if select == 1:
+        view_calander(data)
+    elif select == 2:
+        add_entry(data)
+    elif select == 3:
+        edit_entry(data)
+    elif select == 4:
+        delete_entry(data)
+        
+        
+    
+if __name__ == "__main__":
+    main()
     
