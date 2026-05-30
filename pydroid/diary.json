@@ -1,3 +1,10 @@
 {
-  "diary": []
+  "diary": [
+    {
+      "id": 1,
+      "entry": "Hello",
+      "emotion": "red = Stressed/Annoyed",
+      "date": "Sat May 30 11:47:16 2026"
+    }
+  ]
 }
