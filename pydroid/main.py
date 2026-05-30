@@ -62,7 +62,7 @@ def delete_entry(data):
         return 
     
     for line in data['diary']:
-        print(f"ID: {line['id'] + 1 }  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
+        print(f"ID: {line['id']}  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
         
     Delete = int(input("Delete entry: ")) - 1
     data['diary'].pop(Delete)
@@ -79,7 +79,7 @@ def edit_entry(data):
         return 
     
     for line in data['diary']:
-        print(f"ID: {line['id'] + 1 }  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
+        print(f"ID: {line['id']}  |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
     
     editNum = int(input("Edit entry: ")) - 1
     clear_console()
@@ -102,12 +102,12 @@ def view_calander(data):
         return 
         
     for line in data['diary']:
-        print(f"ID: {line['id'] + 1 } |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
+        print(f"ID: {line['id']} |  {line['date']} |  {line['emotion'][:25]}  |  {line['entry'][:50]}")
     
     viewNum = int(input("View entry:")) -1
     clear_console()
     
-    print(f"id: {data['diary'][viewNum]['id'] + 1 }\n date: {data['diary'][viewNum]['date']}\n emotion: {data['diary'][viewNum]['emotion']}\n entry: {data['diary'][viewNum]['entry']}")
+    print(f"id: {data['diary'][viewNum]['id']}\n date: {data['diary'][viewNum]['date']}\n emotion: {data['diary'][viewNum]['emotion']}\n entry: {data['diary'][viewNum]['entry']}")
     
     
     
