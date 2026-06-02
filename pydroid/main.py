@@ -34,21 +34,25 @@ def add_entry(data):
         print(x)
         
     color = input("enter color for emotion ")
-    if color == "purple":
-       mood = "purple = Happy"
-    elif color == "red" :
-       mood = "red = Stressed/Annoyed"
-    elif color == "grey":
-       mood = "grey = Average"
-    elif color == "green":
-       mood = "green = Productive"
-    elif color == "blue":
-       mood = "blue = Content/At peace"
-    elif color == "black":
-       mood = "black = idc idc whatever"
+
+    mood = None
+
+    for x in emotions:
+        split = x.split(" = ")
+        
+        if color.strip().lower() == split[0].lower():
+            mood = x
+            break
+
+    if mood is None:
+        print("Color not recognised, please try again.")
+        return 
        
        
-    entry = {"id": len(data['diary']) + 1, 'entry': intro, 'emotion': mood, 'date': datetime.now().strftime("%c")
+    entry = {"id": len(data['diary']) + 1,
+              'entry': intro, 
+              'emotion': mood, 
+              'date': datetime.now().strftime("%c")
     }
     
     data['diary'].append(entry)
