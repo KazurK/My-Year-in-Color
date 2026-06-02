@@ -113,12 +113,23 @@ def view_calander(data):
     
     print(f"id: {data['diary'][viewNum]['id']}\n date: {data['diary'][viewNum]['date']}\n emotion: {data['diary'][viewNum]['emotion']}\n entry: {data['diary'][viewNum]['entry']}")
     
+def add_emotion(data):
+    addColor = input("Type color: ")
+    addEmotion = input("Type emotion: ")
+
+    addList = f"{addColor} = {addEmotion}"
+    data['emotions'].append(addList)
+    save_json(data)
+    clear_console()
+    print(f"Added + {addList}")
     
     
 def main():
     data = load_json()
     
-    print("1 -- View calander \n2 -- Add entry \n3 -- Edit entry \n4 -- Delete entry\n")
+    menu = ["1 -- View calander", "2 -- Add entry", "3 -- Edit entry", "4 -- Delete entry", "5 -- Add emotion"]
+    for x in menu:
+        print(x)
     select = int(input("Please enter number: "))
     
     if select == 1:
@@ -129,6 +140,8 @@ def main():
         edit_entry(data)
     elif select == 4:
         delete_entry(data)
+    elif select == 5:
+        add_emotion(data)
     else:
         print("Please select a valid option")
         
