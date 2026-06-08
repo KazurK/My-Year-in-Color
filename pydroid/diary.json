@@ -1,10 +1,31 @@
 {
+  "emotions": [
+    "purple = Happy",
+    "red = Stressed/Annoyed",
+    "grey = Average",
+    "green = Productive",
+    "blue = Content, at Peace",
+    "black = idc idc whatever",
+    "yellow = Fun"
+  ],
   "diary": [
     {
       "id": 1,
       "entry": "Hello",
       "emotion": "red = Stressed/Annoyed",
       "date": "Sat May 30 11:47:16 2026"
+    },
+    {
+      "id": 2,
+      "entry": "hello",
+      "emotion": "purple = Happy",
+      "date": "Tue Jun  2 12:26:57 2026"
+    },
+    {
+      "id": 3,
+      "entry": "hello ",
+      "emotion": "purple = Happy",
+      "date": "Tue Jun  2 12:36:59 2026"
     }
   ]
 }
