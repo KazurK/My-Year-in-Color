@@ -1,0 +1,6 @@
+# SQLite database containing user data
+myic.db
+
+# Python generated files
+__pycache__/
+*.pyc
