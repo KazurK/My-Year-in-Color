@@ -70,7 +70,7 @@ The current default categories are:
 | ⚪ Grey | Average |
 | 🟢 Green | Productive |
 | 🔵 Blue | Content / At Peace |
-| ⚫ Black | Other |
+| ⚫ Black | Idk Idc|
 
 The colour-to-emotion system can be extended with additional categories.
 
