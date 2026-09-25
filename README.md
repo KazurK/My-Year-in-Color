@@ -27,7 +27,7 @@ The project was originally built using JSON storage and was later developed furt
 ```text
 .
 ├── myic.py
-└── databaseQuery.py
+└── myicDatabaseQuery.py
 ```
 
 ### `myic.py`
@@ -42,7 +42,7 @@ This includes functionality for:
 - Deleting entries
 - Selecting emotions/colours
 
-### `databaseQuery.py`
+### `myicDatabaseQuery.py`
 
 Contains the SQLite database functionality.
 
@@ -88,7 +88,7 @@ notes
 time
 ```
 
-The database operations are separated into `databaseQuery.py`, where SQL queries are used to insert, retrieve, update and delete entries.
+The database operations are separated into `myicDatabaseQuery.py`, where SQL queries are used to insert, retrieve, update and delete entries.
 
 ## Getting Started
 
@@ -105,16 +105,6 @@ Python's `sqlite3` module is included with standard Python installations, so no 
 git clone https://github.com/KazurK/My-Year-in-Color.git
 cd My-Year-in-Color
 ```
-
-### Configure the database
-
-Before running the application, update the database path in `databaseQuery.py`:
-
-```python
-dbPath = "/path/to/your/lifesuite.db"
-```
-
-The database must contain an `entry` table with the columns required by the application.
 
 ### Run the application
 
